@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load sidebar %}
+{% load static %}
+
+{% block title %}Все объявления{% endblock title %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col justify-content-md-center">
+      <table class="table table-dark" style:>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Заголовок объявления</th>
+            <th scope="col">Продавец</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ad in page_obj %}
+          <tr>
+            <th scope="row">{{ ad.id }}</th>
+            <td><a href="{{ ad.get_absolute_url }}">{{ ad.title }}</a></td>
+            <th scope="row">{{ ad.seller.seller }}</th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-auto">
+      {% show_tags %}
+    </div>
+  </div>
+  {% include 'includes/_pagination.html'%}
+{% endblock content %}

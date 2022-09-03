@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Account{% endblock title %}
+
+{% block content %}
+
+<div class="card shadow-custom border-0 col-lg-7 mx-auto mb-3">
+  {% if phone_verification_required %}
+  <div class="mt-5">
+    <p>Ваш телефон не подтвержден. 
+    <a class="btn btn-primary" href="{% url 'accounts:confirm_phone_number_url' %}" role="button">Подтвердить номер телефона</a></p>
+  </div>
+  {% endif %}
+  <h2 class="font-weight-bold text-grey mt-2">Профиль</h2>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <div class="input-field">
+          <label for="first_name">Имя</label>
+          {{ user_form.first_name }}
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="input-field">
+          <label for="last_name">Фамилие</label>
+          {{ user_form.last_name }}
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="input-field">
+          <label for="email">Email</label>
+          {{ user_form.email }}
+          {{ user_form.email.errors }}
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="input-field">
+          <label for="itn">ИНН</label>
+          {{ form.itn }}
+          {{ form.itn.errors }}
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="input-field">
+          <label for="phone_number">Телефон</label>
+          {{ form.phone_number }}
+          {{ form.phone_number.errors }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit" class="btn btn-primary">
+       Обновить данные
+      </button>
+    </div>
+  </form> 
+</div>
+{% endblock content %}
+ 
+
+    
+    

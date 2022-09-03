@@ -1,0 +1,72 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:site_name" content="Advertising Board">
+    <meta property="og:locale" content="ru_RU">
+    {% block meta %}
+      <meta name="description" content="На&nbsp;Avertising Board вы&nbsp;можете недорого купить или выгодно продать авто с&nbsp;пробегом или новую машину, квартиру и&nbsp;другую 
+      недвижимость, а&nbsp;также новую или б/у одежду, мебель">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="Avertising Board: недвижимость, транспорт, работа, услуги, вещи"/>
+      <meta property="og:description" content="На&nbsp;Avertising Board вы&nbsp;можете недорого купить или выгодно продать авто с&nbsp;пробегом или новую машину, квартиру и&nbsp;другую 
+                  недвижимость, а&nbsp;также новую или б/у одежду, мебель"/>
+    {% endblock meta %}
+    <title>{% block title %}{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/sticky-footer-navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- fancyBox3 CSS -->
+    <link href="{% static 'css/fancybox/fancybox.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+  </head>
+  <body class="d-flex flex-column h-100">
+    <!-- Begin page content -->
+    {% if config.MAINTENANCE_MODE %}
+      {% include 'includes/_technical_work.html' %}
+    {% else %}
+      <main class="flex-shrink-0">
+        {% block header %}
+          {% include 'includes/_header.html' %}
+        {% endblock header %}
+        <div class="container mt-3">
+          {% include 'includes/_messages.html'  %}
+          {% block content %}
+            {{ flatpage.content }}
+          {% endblock content %}
+        </div>
+
+      </main>
+      {% include 'main/includes/_chat.html' %}
+      {% block footer %}
+        {% include 'includes/_footer.html' %}
+      {% endblock footer %}
+      <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap/bootstrap.js' %}"></script>
+      <script src="{% static 'js/fancybox/fancybox.umd.js' %}"></script>
+      <script src="{% static '/main/js/chat.js' %}"></script>
+    {% endif %}
+  </body>
+</html>

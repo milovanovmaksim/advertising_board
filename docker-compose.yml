@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: postgres
+    image: postgres:13-bullseye
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env-dev
+
+  redis:
+    restart: always
+    container_name: redis_advertising_board
+    image: redis:alpine
+    command: redis-server
+    environment:
+     - REDIS_REPLICATION_MODE=master
+    ports:
+      - 6379:6379
+
+  celery-worker:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./advertising_board/Dockerfile
+    container_name: celery-worker
+    command: celery -A config worker -l INFO
+    env_file:
+      - ./.env-dev
+    depends_on:
+      - web
+
+  celery-beat:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./advertising_board/Dockerfile
+    container_name: celery-beat
+    command: celery -A config beat -l INFO
+    env_file:
+      - ./.env-dev
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:

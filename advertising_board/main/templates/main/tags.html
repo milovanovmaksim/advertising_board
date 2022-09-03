@@ -1,0 +1,8 @@
+{% load cache %}
+<h2>Tags</h2>
+{% cache 600 tags %}
+{% for tag in tags %}
+  <p><a href="?tag={{ tag.slug }}">{{ tag.title }}</a></p>
+{% endfor %}
+{% endcache %}
+

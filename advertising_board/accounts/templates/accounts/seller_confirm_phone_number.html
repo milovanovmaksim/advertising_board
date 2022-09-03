@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Подтверждение номера телефона{% endblock title %}
+
+{% block content %}
+  <p>На указанный Вами номер телефона {{ phone_number }} будет отправлен четырех значный код. Введите код в поле "Код и СМС".</p>
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group mt-3">
+        {{ field.label_tag }} {{ field }}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success mt-2">Подтвердить</button>
+  </form>
+{% endblock content %}

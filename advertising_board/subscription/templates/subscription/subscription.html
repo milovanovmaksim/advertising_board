@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load addclass %}
+
+{% block title %}Подписаться на рассылку{% endblock title %}
+
+{% block content %}
+  <p class="mt-5">Хотите получать уведомления о новых объявлениях на электронную почту {{ request.user.email }}?</p>
+  <p>Подпишитесь на обновления.</p>
+  <form action="{% url 'subscription:subscribe_url' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group mb-3">
+        {{ field.label_tag }} {{ field|addclass:'form-control mb-3' }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Подписатьcя</button>
+  </form>
+{% endblock content %}

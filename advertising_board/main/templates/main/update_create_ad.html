@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load addclass %}
+
+{% block title %}Создание объявления{% endblock title %}
+
+{% block content %}
+  <div class="mt-3">{% if creation %}<h2>Новое объявление</h2>{% else %}<h2>Редактирование объявления</h2>{% endif %}</div>
+  <hr>
+  <form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{ image_formset.management_form }}
+    {% for field in form %}
+      <div class="form-group mb-3">
+          {{ field.label_tag }} {{ field|addclass:'form-control mb-3' }}
+          {{ field.errors }}
+      </div>
+    {% endfor %}
+    <p>Фото:</p>
+    {% for form in image_formset %}
+      {{ form.id }}
+      <div class="form-control">
+        {{ form.img|addclass:'form-control-file' }} <span>{{ form.DELETE }} {{ form.DELETE.label  }}</span>
+        {{ form.img.errors }}
+      </div>
+    {% endfor %}
+    <input class="btn btn-primary mb-2" type="submit"
+      value="{% if creation %}Создать объявление{% else %}Обновить объявление{% endif %}">
+  </form>
+{% endblock content %}

@@ -1,0 +1,8 @@
+{% load account %}
+{% load i18n %}
+
+{% block content %}
+Вы получили это письмо, так как Ваш email {% user_display user as user_display %} 
+был указан при регистрации на сайте {{ current_site.domain }}.
+Для подтверждения email пройдите по ссылке: {{ activate_url }}
+{% endblock content %}

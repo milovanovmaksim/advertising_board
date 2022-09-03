@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: ./advertising_board/Dockerfile
+    env_file:
+      - ./.env-dev
+    depends_on:
+      - db
+      - redis
+    container_name: advertising_board
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./advertising_board:/usr/src/app/
+    ports:
+      - 8000:8000
+
+  celery-worker:
+    volumes:
+      - ./advertising_board:/usr/src/app/
+
+
+  celery-beat:
+    volumes:
+      - ./advertising_board:/usr/src/app/

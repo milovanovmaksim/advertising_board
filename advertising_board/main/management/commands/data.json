@@ -1,0 +1,16 @@
+[
+    {
+        "model": "auth.group",
+        "name_group": "common_users",
+        "code_name_permissions": [
+            "add_ad",
+            "change_ad",
+            "delete_ad",
+            "view_ad",
+            "add_archiveads",
+            "change_archiveads",
+            "delete_archiveads",
+            "view_archiveads"
+        ]
+    }
+]
