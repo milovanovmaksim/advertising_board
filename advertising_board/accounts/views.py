@@ -17,11 +17,8 @@ class SellerUpdateView(LoginRequiredMixin, UpdateView):
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
-        try:
-            self.sms_log, _ = SMSLog.objects.get_or_create(seller=self.get_object())
-            self.seller_phone_number = self.get_object().phone_number
-        except AttributeError:
-            pass
+        self.sms_log, _ = SMSLog.objects.get_or_create(seller=self.get_object())
+        self.seller_phone_number = self.get_object().phone_number
 
     def get_object(self, queryset=None):
         return self.request.user.seller
